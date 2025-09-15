@@ -1,0 +1,51 @@
+import capos.*
+
+describe "Rolando" {
+  test "Mochila de Rolando" {
+    rolando.encontrarArtefacto(espadaDelDestino)
+    rolando.encontrarArtefacto(libroDeHechizos)
+    assert.throwsException({ rolando.encontrarArtefacto(collarDivino) })
+    assert.equals(#{espadaDelDestino, libroDeHechizos}, rolando.mochila())
+  }
+  test "Castillo de Piedra" {
+    rolando.encontrarArtefacto(espadaDelDestino)
+    rolando.encontrarArtefacto(libroDeHechizos)
+    rolando.volverAlCastillo()
+    rolando.encontrarArtefacto(collarDivino)
+    rolando.volverAlCastillo()
+    assert.equals(#{espadaDelDestino,libroDeHechizos,collarDivino}, 
+                    castilloDePiedra.coleccion()) 
+  }
+  test "Artefactos de Rolando" {
+    castilloDePiedra.coleccion().add(collarDivino)
+    castilloDePiedra.coleccion().add(espadaDelDestino)
+    rolando.mochila().add(armaduraDeAceroValyrio)
+    assert.equals(#{collarDivino,espadaDelDestino,armaduraDeAceroValyrio}, 
+                    rolando.verPosesiones())
+    assert.that(rolando.tengoElArtefacto(collarDivino))
+  }
+  test "Historia de los Artefactos" {
+    rolando.encontrarArtefacto(espadaDelDestino)
+    rolando.encontrarArtefacto(libroDeHechizos)
+    assert.throwsException({ rolando.encontrarArtefacto(collarDivino) })
+    rolando.volverAlCastillo()
+    rolando.encontrarArtefacto(armaduraDeAceroValyrio)
+    rolando.encontrarArtefacto(collarDivino)
+    assert.equals([espadaDelDestino, libroDeHechizos, collarDivino, armaduraDeAceroValyrio, collarDivino],
+                 rolando.historiaDeArtefactos())
+  }
+}
+
+describe "Mensajes con Bloques" {
+  test "Comportamiento de los Artefactos" {
+    rolando.poderBase(5)
+    rolando.espacioLimite(3)
+    rolando.mochila().addAll(#{espadaDelDestino, armaduraDeAceroValyrio, collarDivino})
+    rolando.pelearBatalla()
+    assert.equals(18, rolando.poderDePelea())
+    rolando.pelearBatalla()
+    assert.equals(21.5, rolando.poderDePelea())
+    rolando.pelearBatalla()
+     assert.equals(24, rolando.poderDePelea())
+  }
+}
