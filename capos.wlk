@@ -1,5 +1,6 @@
 object rolando {
     var property poderBase = 5 
+    var property enemigosPichi = #{} 
 
     var property casa = castilloDePiedra
 
@@ -35,6 +36,44 @@ object rolando {
         mochila.forEach({artefacto => artefacto.fueUsado()})
         poderBase += 1
     }
+    method enemigosPichi() {
+        return erethia.enemigos().filter({enemigo => self.puedeVencerA(enemigo)})
+    }
+    method puedeVencerA(enemigo) {
+        return enemigo.poderDePelea() < self.poderDePelea()
+    }
+    method moradasConquistables() {
+      return self.enemigosPichi().map({enemigo => enemigo.casa()})
+    }
+}
+
+object erethia {
+    var property enemigos = #{}
+    
+}
+
+object caterina {
+    var property casa = fortalezaDeAcero
+
+    method poderDePelea() {
+        return 28
+    }
+}
+
+object archibaldo {
+    var property casa = palacioDeMarmol
+
+    method poderDePelea() {
+        return 16
+    }
+}
+
+object astra {
+    var property casa = torreDeMarfil
+
+    method poderDePelea() {
+        return 14
+    }
 }
 
 object castilloDePiedra {
@@ -47,6 +86,19 @@ object castilloDePiedra {
       return coleccion.max({coleccion => coleccion.poder(portador)})
     }
 }
+
+object fortalezaDeAcero {
+  
+}
+
+object palacioDeMarmol {
+  
+}
+
+object torreDeMarfil {
+  
+}
+
 object espadaDelDestino {
     var fueUsada = false
 
