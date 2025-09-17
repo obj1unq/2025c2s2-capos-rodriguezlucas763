@@ -77,7 +77,31 @@ describe "Mensajes con Bloques" {
     rolando.mochila().addAll(#{espadaDelDestino, armaduraDeAceroValyrio, collarDivino})
     assert.that(rolando.puedeVencerA(archibaldo))
     assert.that(rolando.puedeVencerA(astra))
-    assert.equals([palacioDeMarmol, torreDeMarfil], rolando.moradasConquistables())
+    assert.equals([palacioDeMarmol, torreDeMarfil], rolando.moradasConquistables(erethia))
+
+  }
+  test "Poderoso" {
+erethia.enemigos().addAll(#{caterina, archibaldo, astra})
+
+    assert.equals(28, caterina.poderDePelea())
+    assert.equals(fortalezaDeAcero, caterina.casa())
+    assert.equals(16, archibaldo.poderDePelea())
+    assert.equals(palacioDeMarmol, archibaldo.casa())
+    assert.equals(14, astra.poderDePelea())
+    assert.equals(torreDeMarfil, astra.casa())
+
+    rolando.poderBase(5)
+    rolando.espacioLimite(3)
+    rolando.mochila().addAll(#{espadaDelDestino, armaduraDeAceroValyrio, collarDivino})
+
+    assert.notThat(rolando.esPoderoso(erethia))
+
+    rolando.poderBase(10)
+    assert.that(rolando.esPoderoso(erethia))
+  }
+  test "Artefacto Fatal" {
+    assert.that(rolando.hayArtefactoFatalPara(enemigo))
+    
 
   }
 }

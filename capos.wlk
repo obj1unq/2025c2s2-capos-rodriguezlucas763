@@ -1,7 +1,7 @@
 object rolando {
     var property poderBase = 5 
-    var property enemigosPichi = #{} 
 
+    var property territorio = erethia
     var property casa = castilloDePiedra
 
     var property mochila = #{} 
@@ -36,14 +36,17 @@ object rolando {
         mochila.forEach({artefacto => artefacto.fueUsado()})
         poderBase += 1
     }
-    method enemigosPichi() {
-        return erethia.enemigos().filter({enemigo => self.puedeVencerA(enemigo)})
+    method enemigosPichi(tierra) {
+        return tierra.enemigos().filter({enemigo => self.puedeVencerA(enemigo)})
     }
     method puedeVencerA(enemigo) {
         return enemigo.poderDePelea() < self.poderDePelea()
     }
-    method moradasConquistables() {
-      return self.enemigosPichi().map({enemigo => enemigo.casa()})
+    method moradasConquistables(tierra) {
+      return self.enemigosPichi(tierra).map({enemigo => enemigo.casa()})
+    }
+    method esPoderoso(tierra) {
+      return self.enemigosPichi(tierra) == tierra.enemigos()
     }
 }
 
