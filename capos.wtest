@@ -48,4 +48,18 @@ describe "Mensajes con Bloques" {
     rolando.pelearBatalla()
      assert.equals(24, rolando.poderDePelea())
   }
+  test "Libro de Hechizos" {
+    rolando.poderBase(5)
+    rolando.mochila().add(libroDeHechizos)
+    castilloDePiedra.coleccion().addAll(#{espadaDelDestino, armaduraDeAceroValyrio, collarDivino})
+    libroDeHechizos.hechizos().addAll([bendicion, invisibilidad, invocacion])
+
+    assert.equals(4, libroDeHechizos.poder(rolando))
+    rolando.pelearBatalla()
+    assert.equals(6, libroDeHechizos.poder(rolando))
+    rolando.pelearBatalla()
+    assert.equals(7, libroDeHechizos.poder(rolando))
+    rolando.pelearBatalla()
+    assert.equals(0, libroDeHechizos.poder(rolando))
+  }
 }

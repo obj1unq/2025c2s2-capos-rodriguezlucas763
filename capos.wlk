@@ -43,6 +43,9 @@ object castilloDePiedra {
     method almacenarArtefactos(artefactos) {
       coleccion.addAll(artefactos)
     }
+    method artefactoOp(portador) {
+      return coleccion.max({coleccion => coleccion.poder(portador)})
+    }
 }
 object espadaDelDestino {
     var fueUsada = false
@@ -61,7 +64,21 @@ object espadaDelDestino {
 }
 
 object libroDeHechizos {
-    
+    var property hechizos = []
+
+    method poder(portador) {
+        if (hechizos == []) {
+            return 0
+        }
+        else {
+            return hechizos.first().poder(portador)
+        }
+    }
+    method fueUsado() {
+        if (hechizos != []) {
+            hechizos.remove(hechizos.first())
+        }
+    } 
 }
 
 object collarDivino {
@@ -89,4 +106,25 @@ object armaduraDeAceroValyrio{
     method fueUsado() {
 
     }
+}
+
+object bendicion {
+
+  method poder(portador) {
+    return 4
+  }
+}
+
+object invisibilidad {
+  
+  method poder(portador) {
+    return portador.poderBase()
+  }
+}
+
+object invocacion {
+  
+  method poder(portador) {
+    return portador.casa().artefactoOp(portador).poder(portador)
+  }
 }
